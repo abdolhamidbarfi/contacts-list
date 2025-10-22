@@ -1,7 +1,4 @@
 "use client";
-
-import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "../store";
 import { useUser } from "./useSlices";
 
 export default function UserClient() {

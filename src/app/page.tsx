@@ -1,7 +1,5 @@
-"use client";
-
-import UserClient from "@/features/userClient";
+import AddContact from "@/features/contacts/AddContact";
 
 export default function Home() {
-  return <UserClient />;
+  return <AddContact />;
 }
