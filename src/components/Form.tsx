@@ -43,9 +43,9 @@ function Field({ label, id, name, ...props }: FieldProps) {
 
   return (
     <div className="space-y-1">
-      {label && <Label htmlFor={id}>{label}</Label>}
+      {label && <Label htmlFor={id || name}>{label}</Label>}
       <Input
-        id={id}
+        id={id || name}
         {...props}
         className={cn("h-14", props?.className)}
         {...register(name)}

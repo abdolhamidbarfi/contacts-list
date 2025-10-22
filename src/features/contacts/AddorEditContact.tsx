@@ -3,7 +3,7 @@ import Form from "@/components/Form";
 import { Row } from "@/components/ui/row";
 import React from "react";
 
-export default function AddContact() {
+export default function AddorEditContact() {
   function handleSubmit(value: any) {
     console.log(value);
   }
