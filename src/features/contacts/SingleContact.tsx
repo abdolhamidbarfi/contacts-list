@@ -10,13 +10,6 @@ import { cn } from "@/lib/utils";
 import { Dialog } from "@/components/Modal";
 import { useDocumentTitle } from "@/hooks/seDocumentTitle";
 
-interface ProfileProps {
-  name?: string;
-  phone?: string;
-  email?: string;
-  avatar?: string | null;
-}
-
 export default function SingleContact() {
   const { contactId } = useParams();
   const { getContactById, dispatchDeleteContact } = useContacts();
