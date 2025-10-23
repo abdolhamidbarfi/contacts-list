@@ -12,7 +12,7 @@ import {
   useForm,
 } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { AnyZodObject } from "zod/v3";
+import { z } from "zod";
 
 interface IFormContext {
   register: ReturnType<typeof useForm>["register"];
@@ -23,7 +23,7 @@ const FormContext = createContext<IFormContext | null>(null);
 interface FormProps extends React.FormHTMLAttributes<HTMLFormElement> {
   children: React.ReactNode;
   onSubmit: SubmitHandler<FieldValues>;
-  zodSchema: AnyZodObject;
+  zodSchema: z.ZodObject<any>;
 }
 function Form({
   children,
