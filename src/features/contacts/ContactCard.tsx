@@ -1,7 +1,7 @@
 "use client";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -12,19 +12,23 @@ import {
 import { MoreVertical } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useContacts } from "./useContacts";
 
 interface ContactCardProps {
+  id: string;
   name: string;
   phone: string;
   avatarUrl?: string;
 }
 
 export default function ContactCard({
+  id,
   name,
   phone,
   avatarUrl,
 }: ContactCardProps) {
   const navigate = useRouter();
+  const { dispatchDeleteContact } = useContacts();
   function handleClickCard(e: React.MouseEvent<HTMLDivElement>) {
     e.stopPropagation();
     const target = e.currentTarget as HTMLDivElement;
@@ -36,7 +40,7 @@ export default function ContactCard({
     <Card
       className="flex items-center justify-between p-4 w-full cursor-pointer"
       onClick={handleClickCard}
-      id="25555555"
+      id={id}
     >
       {/* آواتار و اطلاعات */}
       <div className="flex items-center gap-4">
@@ -68,13 +72,13 @@ export default function ContactCard({
             className="cursor-pointer"
             onClick={(e) => e.stopPropagation()}
           >
-            <Link href="/2536/edit">ویرایش</Link>
+            <Link href={`${id}/edit`}>ویرایش</Link>
           </DropdownMenuItem>
           <DropdownMenuItem
             dir="rtl"
             onClick={(e) => {
-              alert("Deleted contacts");
               e.stopPropagation();
+              dispatchDeleteContact(id);
             }}
             className="cursor-pointer"
           >
