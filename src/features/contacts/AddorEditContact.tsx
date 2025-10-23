@@ -6,6 +6,7 @@ import { useParams, useRouter } from "next/navigation";
 import { useContacts } from "./useContacts";
 import { z } from "zod";
 import { Dialog } from "@/components/Modal";
+import { useDocumentTitle } from "@/hooks/seDocumentTitle";
 
 const contactSchema = z.object({
   name: z.string().min(3, "نام الزامی است"),
@@ -27,6 +28,10 @@ export default function AddorEditContact() {
   const [isContactExist, setIsContactExist] = useState<boolean>(false);
 
   const contact = getContactById(contactId as string);
+
+  if (contactId) {
+    useDocumentTitle(contact ? `ویرایش ${contact.name} | دفترچه مخاطبین` : "");
+  }
 
   function handleSubmit(value: any) {
     if (contactId) {

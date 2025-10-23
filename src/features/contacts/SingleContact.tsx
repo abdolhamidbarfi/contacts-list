@@ -8,6 +8,7 @@ import { useContacts } from "./useContacts";
 import { getColorByChar } from "@/lib/getColorByChar";
 import { cn } from "@/lib/utils";
 import { Dialog } from "@/components/Modal";
+import { useDocumentTitle } from "@/hooks/seDocumentTitle";
 
 interface ProfileProps {
   name?: string;
@@ -21,6 +22,8 @@ export default function SingleContact() {
   const { getContactById, dispatchDeleteContact } = useContacts();
   const navigate = useRouter();
   const contact = getContactById(contactId as string);
+
+  useDocumentTitle(contact ? `${contact.name} | دفترچه مخاطبین` : "");
 
   function handleDeleteContact() {
     dispatchDeleteContact(contact?.id as string);
@@ -60,12 +63,11 @@ export default function SingleContact() {
           <span className="font-medium">شماره تماس: </span>
           <span>{contact?.phone}</span>
         </div>
-        {contact?.email && (
-          <div className="py-5 flex justify-between text-xl">
-            <span className="font-medium">ایمیل:</span>
-            <span>{contact?.email}</span>
-          </div>
-        )}
+
+        <div className="py-5 flex justify-between text-xl">
+          <span className="font-medium">ایمیل:</span>
+          <span>{contact?.email || "ایمیل وارد نشده است"}</span>
+        </div>
 
         <div className="fixed bottom-0 left-0 right-0 bg-background border-t border-border">
           <Row>

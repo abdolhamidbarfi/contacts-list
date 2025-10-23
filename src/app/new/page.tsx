@@ -1,5 +1,7 @@
 import AddorEditContact from "@/features/contacts/AddorEditContact";
-
+export const metadata = {
+  title: "اضافه کردن مخاطب جدید",
+};
 export default function AddNewContact() {
   return <AddorEditContact />;
 }
