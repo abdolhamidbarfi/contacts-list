@@ -63,17 +63,12 @@ contacts/
 │ ├── getColorByChar.ts  
 │ └── utils.ts
 
----
-
-## 📸 Screenshots
-
-Add screenshots in `/public/screenshots`
 
 ---
 
 ## 🛠️ Installation
 
-git clone https://github.com/abdolhamidbarfi /contacts.git
+git clone https://github.com/abdolhamidbarfi/contacts-list.git
 cd contacts
 npm install
 npm run dev
