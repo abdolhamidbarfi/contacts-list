@@ -49,7 +49,7 @@ export default function AddorEditContact() {
   return (
     <>
       <Row direction="column" align="stretch" maxWidth="7xl" className="mt-32">
-        <Form onSubmit={handleSubmit} zodSchema={contactSchema}>
+        <Form onSubmit={handleSubmit} zodSchema={contactSchema as any}>
           <Form.Field
             label="نام مخاطب"
             name="name"
