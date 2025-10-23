@@ -29,9 +29,7 @@ export default function AddorEditContact() {
 
   const contact = getContactById(contactId as string);
 
-  if (contactId) {
-    useDocumentTitle(contact ? `ویرایش ${contact.name} | دفترچه مخاطبین` : "");
-  }
+  useDocumentTitle(contact ? `ویرایش ${contact.name} | دفترچه مخاطبین` : "");
 
   function handleSubmit(value: any) {
     if (contactId) {

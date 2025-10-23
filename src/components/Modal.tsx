@@ -134,8 +134,7 @@ export function DialogAction({
   );
 }
 
-interface CancelButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
+type CancelButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 export function DialogCancel({ children, ...props }: CancelButtonProps) {
   const context = useContext(DialogContext);

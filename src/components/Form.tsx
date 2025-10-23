@@ -5,15 +5,19 @@ import { cn } from "@/lib/utils";
 import { VariantProps } from "class-variance-authority";
 import { useRouter } from "next/navigation";
 import { createContext, useContext } from "react";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import {
+  FieldErrors,
+  FieldValues,
+  SubmitHandler,
+  useForm,
+} from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import z, { ZodType } from "zod";
 import { ZodTypeDef } from "zod/v3";
 
 interface IFormContext {
   register: ReturnType<typeof useForm>["register"];
-  handleSubmit: ReturnType<typeof useForm>["handleSubmit"];
-  errors: any;
+  errors: FieldErrors<FieldValues>;
 }
 const FormContext = createContext<IFormContext | null>(null);
 
@@ -38,7 +42,7 @@ function Form({
   });
 
   return (
-    <FormContext.Provider value={{ handleSubmit, register, errors }}>
+    <FormContext.Provider value={{ register, errors }}>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className={cn("flex flex-col gap-5 ", className)}
@@ -77,7 +81,9 @@ function Field({ label, id, name, className, ...props }: FieldProps) {
         {...props}
       />
       {errors[name] && (
-        <span className="text-red-500 text-lg">{errors[name].message}</span>
+        <span className="text-red-500 text-lg">
+          {errors[name].message as string}
+        </span>
       )}
     </div>
   );
