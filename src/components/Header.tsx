@@ -1,15 +1,18 @@
+"use client";
 import { Plus } from "lucide-react";
 import ThemeToggle from "./ThemeToggle";
 import { Row } from "./ui/row";
 
 import Link from "next/link";
+import { useContacts } from "@/features/contacts/useContacts";
 
 export default function Header() {
+  const { contacts } = useContacts();
   return (
     <header className="fixed top-0 left-0 w-full h-20 bg-background border-b flex items-center justify-center z-50">
       <Row align="center">
-        <h1 className="text-base font-semibold">
-          <Link href="/"> App Header</Link>
+        <h1 className="text-2xl font-semibold">
+          <Link href="/">{contacts.length} مخاطب </Link>
         </h1>
         <div className="flex gap-x-5">
           <ThemeToggle />

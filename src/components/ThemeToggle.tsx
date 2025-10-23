@@ -8,7 +8,6 @@ export default function ThemeToggle() {
   const [theme, setTheme] = useState<"light" | "dark">("light");
 
   useEffect(() => {
-    // بررسی حالت ذخیره شده یا سیستم
     const stored = localStorage.getItem("theme") as "light" | "dark" | null;
     if (stored) {
       setTheme(stored);

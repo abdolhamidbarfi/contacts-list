@@ -26,7 +26,7 @@ export default function SingleContact() {
   return (
     <Row direction="column" align="center" className="mt-16 " maxWidth="7xl">
       <div className="w-full mt-20">
-        <div className="flex flex-col items-center space-y-2 mb-14 w-full">
+        <div className="flex flex-col items-center space-y-2 mb-20 w-full">
           <div className="w-24 h-24 rounded-full overflow-hidden bg-muted flex items-center justify-center">
             {contact?.avatar ? (
               <img
@@ -38,15 +38,15 @@ export default function SingleContact() {
               <User className="w-12 h-12 text-muted-foreground" />
             )}
           </div>
-          <h2 className="text-lg font-semibold">{contact?.name}</h2>
+          <h2 className="font-semibold text-2xl pt-4">{contact?.name}</h2>
         </div>
 
-        <div className=" flex justify-between border-border border-gray-200 border-b py-5 ">
+        <div className=" flex justify-between border-border border-gray-200 border-b py-5 text-xl">
           <span className="font-medium">شماره تماس: </span>
           <span>{contact?.phone}</span>
         </div>
         {contact?.email && (
-          <div className="py-5 flex justify-between">
+          <div className="py-5 flex justify-between text-xl">
             <span className="font-medium">ایمیل:</span>
             <span>{contact?.email}</span>
           </div>

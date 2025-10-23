@@ -53,8 +53,8 @@ export default function ContactCard({
         </Avatar>
 
         <div className="flex flex-col">
-          <span className="font-medium">{name}</span>
-          <span className="text-sm text-muted-foreground">{phone}</span>
+          <span className="font-medium text-lg">{name}</span>
+          <span className="text-md text-muted-foreground">{phone}</span>
         </div>
       </div>
 
