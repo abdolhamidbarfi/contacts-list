@@ -51,11 +51,11 @@ export default function AddorEditContact() {
     } else {
       const result = dispatchAddContact(value);
 
-      result === "fulfilled"
-        ? navigate.replace("/")
-        : result === "rejected"
-        ? setIsContactExist(true)
-        : null;
+      if (result === "fulfilled") {
+        navigate.replace("/");
+      } else if (result === "rejected") {
+        setIsContactExist(true);
+      }
     }
   }
 

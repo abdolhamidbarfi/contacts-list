@@ -5,10 +5,9 @@ import { cn } from "@/lib/utils";
 import { VariantProps } from "class-variance-authority";
 import { useRouter } from "next/navigation";
 import { createContext, useContext } from "react";
-import { UseFormRegister } from "react-hook-form";
+import { FieldPath, FieldValues, UseFormRegister } from "react-hook-form";
 
-interface IFormContext {}
-const FormContext = createContext<IFormContext | null>(null);
+const FormContext = createContext<null>(null);
 
 function Form({
   children,
@@ -17,7 +16,7 @@ function Form({
   ...props
 }: React.FormHTMLAttributes<HTMLFormElement>) {
   return (
-    <FormContext.Provider value={{}}>
+    <FormContext.Provider value={null}>
       <form
         onSubmit={onSubmit}
         className={cn("flex flex-col gap-5 ", className)}
@@ -29,15 +28,16 @@ function Form({
   );
 }
 
-interface FieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
+interface FieldProps<T extends FieldValues>
+  extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
-  name: string;
+  name: FieldPath<T>;
   errorMessage?: string;
-  register: UseFormRegister<any>;
+  register: UseFormRegister<T>;
 }
 
 //input field in form
-function Field({
+function Field<T extends FieldValues>({
   label,
   id,
   name,
@@ -45,7 +45,7 @@ function Field({
   errorMessage,
   register,
   ...props
-}: FieldProps) {
+}: FieldProps<T>) {
   const formValues = useContext(FormContext);
   if (!formValues) {
     throw new Error("Field must be used inside a <Form> component");
