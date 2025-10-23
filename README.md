@@ -68,7 +68,7 @@ contacts/
 
 ## 🛠️ Installation
 
-git clone https://github.com/abdolhamidbarfi /contacts.git
+git clone https://github.com/abdolhamidbarfi/contacts-list.git
 cd contacts
 npm install
 npm run dev
