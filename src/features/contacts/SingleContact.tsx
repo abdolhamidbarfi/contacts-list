@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { useContacts } from "./useContacts";
+import { getColorByChar } from "@/lib/getColorByChar";
+import { cn } from "@/lib/utils";
 
 interface ProfileProps {
   name?: string;
@@ -23,11 +25,18 @@ export default function SingleContact() {
     dispatchDeleteContact(contact?.id as string);
     navigate.replace("/");
   }
+
+  const color = getColorByChar(contact?.name[0] as string, "bg");
   return (
     <Row direction="column" align="center" className="mt-16 " maxWidth="7xl">
       <div className="w-full mt-20">
         <div className="flex flex-col items-center space-y-2 mb-20 w-full">
-          <div className="w-24 h-24 rounded-full overflow-hidden bg-muted flex items-center justify-center">
+          <div
+            className={cn(
+              "w-24 h-24 rounded-full overflow-hidden bg-muted flex items-center justify-center",
+              color
+            )}
+          >
             {contact?.avatar ? (
               <img
                 src={contact?.avatar}
@@ -35,7 +44,7 @@ export default function SingleContact() {
                 className="object-cover w-full h-full"
               />
             ) : (
-              <User className="w-12 h-12 text-muted-foreground" />
+              <User className={cn("w-12 h-12 text-muted-foreground", color)} />
             )}
           </div>
           <h2 className="font-semibold text-2xl pt-4">{contact?.name}</h2>

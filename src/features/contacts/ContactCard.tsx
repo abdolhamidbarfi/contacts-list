@@ -13,6 +13,7 @@ import { MoreVertical } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useContacts } from "./useContacts";
+import { getColorByChar } from "@/lib/getColorByChar";
 
 interface ContactCardProps {
   id: string;
@@ -36,6 +37,9 @@ export default function ContactCard({
     navigate.push(`${target.id}`);
     // }
   }
+
+  const color = getColorByChar(name[0], "bg");
+
   return (
     <Card
       className="flex items-center justify-between p-4 w-full cursor-pointer"
@@ -48,7 +52,7 @@ export default function ContactCard({
           {avatarUrl ? (
             <AvatarImage src={avatarUrl} alt={name} />
           ) : (
-            <AvatarFallback>{name[0]}</AvatarFallback>
+            <AvatarFallback className={color}>{name[0]}</AvatarFallback>
           )}
         </Avatar>
 
