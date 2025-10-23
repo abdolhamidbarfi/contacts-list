@@ -10,9 +10,7 @@ export interface Contact {
 
 type ContactState = Contact[];
 
-const initialState: ContactState = JSON.parse(
-  localStorage.getItem("contacts") || "[]"
-);
+const initialState: ContactState = [];
 
 const contactsSlice = createSlice({
   name: "contacts",

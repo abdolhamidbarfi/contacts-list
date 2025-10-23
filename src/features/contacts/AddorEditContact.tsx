@@ -8,6 +8,8 @@ import { useContacts } from "./useContacts";
 import { z } from "zod";
 import { Dialog } from "@/components/Modal";
 import { useDocumentTitle } from "@/hooks/seDocumentTitle";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 const contactSchema = z.object({
   name: z.string().min(3, "نام الزامی است"),
@@ -21,6 +23,8 @@ const contactSchema = z.object({
   email: z.email({ message: "ایمیل معتبر نیست" }).or(z.literal("")).optional(),
 });
 
+export type contactSchemaValues = z.infer<typeof contactSchema>;
+
 export default function AddorEditContact() {
   const navigate = useRouter();
   const { contactId } = useParams();
@@ -32,9 +36,17 @@ export default function AddorEditContact() {
 
   useDocumentTitle(contact ? `ویرایش ${contact.name} | دفترچه مخاطبین` : "");
 
-  function handleSubmit(value: any) {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<contactSchemaValues>({
+    resolver: zodResolver(contactSchema),
+  });
+
+  function onSubmitForm(value: contactSchemaValues) {
     if (contactId) {
-      dispatchUpdateContact({ ...value, id: contactId });
+      dispatchUpdateContact({ ...value, id: contactId + "" });
       navigate.back();
     } else {
       const result = dispatchAddContact(value);
@@ -50,25 +62,31 @@ export default function AddorEditContact() {
   return (
     <>
       <Row direction="column" align="stretch" maxWidth="7xl" className="mt-32">
-        <Form onSubmit={handleSubmit} zodSchema={contactSchema as any}>
+        <Form onSubmit={handleSubmit(onSubmitForm)}>
           <Form.Field
-            label="نام مخاطب"
             name="name"
+            label="نام مخاطب"
             defaultValue={contact?.name || ""}
             placeholder="نام و نام خانوادگی"
+            register={register}
+            errorMessage={errors?.name?.message}
           />
           <Form.Field
-            label="شماره تماس"
             name="phone"
+            label="شماره تماس"
             defaultValue={contact?.phone || ""}
             placeholder="09121234567"
+            register={register}
+            errorMessage={errors?.phone?.message}
           />
           <Form.Field
-            label="ایمیل"
             name="email"
+            label="ایمیل"
             type="email"
             defaultValue={contact?.email || ""}
             placeholder="sample@gmail.com"
+            register={register}
+            errorMessage={errors?.email?.message}
           />
           <div className="fixed bottom-0 left-0 right-0 bg-background border-t border-border">
             <Row>

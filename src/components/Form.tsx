@@ -5,45 +5,21 @@ import { cn } from "@/lib/utils";
 import { VariantProps } from "class-variance-authority";
 import { useRouter } from "next/navigation";
 import { createContext, useContext } from "react";
-import {
-  FieldErrors,
-  FieldValues,
-  SubmitHandler,
-  useForm,
-} from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
+import { UseFormRegister } from "react-hook-form";
 
-interface IFormContext {
-  register: ReturnType<typeof useForm>["register"];
-  errors: FieldErrors<FieldValues>;
-}
+interface IFormContext {}
 const FormContext = createContext<IFormContext | null>(null);
 
-interface FormProps extends React.FormHTMLAttributes<HTMLFormElement> {
-  children: React.ReactNode;
-  onSubmit: SubmitHandler<FieldValues>;
-  zodSchema: z.ZodObject<any>;
-}
 function Form({
   children,
   onSubmit,
-  zodSchema,
   className,
   ...props
-}: FormProps) {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    resolver: zodResolver(zodSchema),
-  });
-
+}: React.FormHTMLAttributes<HTMLFormElement>) {
   return (
-    <FormContext.Provider value={{ register, errors }}>
+    <FormContext.Provider value={{}}>
       <form
-        onSubmit={handleSubmit(onSubmit)}
+        onSubmit={onSubmit}
         className={cn("flex flex-col gap-5 ", className)}
         {...props}
       >
@@ -56,15 +32,24 @@ function Form({
 interface FieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   name: string;
+  errorMessage?: string;
+  register: UseFormRegister<any>;
 }
 
 //input field in form
-function Field({ label, id, name, className, ...props }: FieldProps) {
+function Field({
+  label,
+  id,
+  name,
+  className,
+  errorMessage,
+  register,
+  ...props
+}: FieldProps) {
   const formValues = useContext(FormContext);
   if (!formValues) {
     throw new Error("Field must be used inside a <Form> component");
   }
-  const { register, errors } = formValues;
 
   return (
     <div className="space-y-2">
@@ -75,14 +60,12 @@ function Field({ label, id, name, className, ...props }: FieldProps) {
       )}
       <Input
         id={id || name}
-        {...register(name)}
         className={cn("h-14 !text-lg", className)}
+        {...register(name)}
         {...props}
       />
-      {errors[name] && (
-        <span className="text-red-500 text-lg">
-          {errors[name].message as string}
-        </span>
+      {errorMessage && (
+        <span className="text-red-500 text-lg">{errorMessage + ""}</span>
       )}
     </div>
   );
