@@ -12,8 +12,7 @@ import {
   useForm,
 } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ZodType } from "zod";
-import { AnyZodObject, ZodTypeDef } from "zod/v3";
+import { AnyZodObject } from "zod/v3";
 
 interface IFormContext {
   register: ReturnType<typeof useForm>["register"];
