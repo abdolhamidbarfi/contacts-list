@@ -10,9 +10,7 @@ export interface Contact {
 
 type ContactState = Contact[];
 
-const initialState: ContactState = JSON.parse(
-  localStorage.getItem("contacts") || "[]"
-);
+const initialState: ContactState = [];
 
 const contactsSlice = createSlice({
   name: "contacts",
@@ -30,9 +28,12 @@ const contactsSlice = createSlice({
     deleteContact(state, action: PayloadAction<string>) {
       return state.filter((c) => c.id !== action.payload);
     },
+    initContacts(state, action: PayloadAction<ContactState>) {
+      return action.payload;
+    },
   },
 });
 
-export const { addContact, updateContact, deleteContact } =
+export const { addContact, updateContact, deleteContact, initContacts } =
   contactsSlice.actions;
 export default contactsSlice.reducer;

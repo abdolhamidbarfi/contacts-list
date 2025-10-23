@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Row } from "@/components/ui/row";
 import ContactCard from "./ContactCard";
@@ -16,9 +16,17 @@ import { User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
+import { useAppDispatch } from "@/store/hooks";
+import { initContacts } from "./contactsSlice";
 
 export default function ContactList() {
   const { contacts } = useContacts();
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    const stored = JSON.parse(localStorage.getItem("contacts") || "[]");
+    dispatch(initContacts(stored));
+  }, []);
 
   if (!contacts.length) {
     return (

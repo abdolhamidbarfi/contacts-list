@@ -46,11 +46,6 @@ function Field<T extends FieldValues>({
   register,
   ...props
 }: FieldProps<T>) {
-  const formValues = useContext(FormContext);
-  if (!formValues) {
-    throw new Error("Field must be used inside a <Form> component");
-  }
-
   return (
     <div className="space-y-2">
       {label && (
