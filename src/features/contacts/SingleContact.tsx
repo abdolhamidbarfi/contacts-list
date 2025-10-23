@@ -7,6 +7,7 @@ import { useParams, useRouter } from "next/navigation";
 import { useContacts } from "./useContacts";
 import { getColorByChar } from "@/lib/getColorByChar";
 import { cn } from "@/lib/utils";
+import { Dialog } from "@/components/Modal";
 
 interface ProfileProps {
   name?: string;
@@ -72,9 +73,26 @@ export default function SingleContact() {
               <Link href={`${contact?.id}/edit`}>ویرایش</Link>
             </Button>
 
-            <Button onClick={handleDeleteContact} variant="outline" size="lg">
-              حذف
-            </Button>
+            <Dialog.Root>
+              <Dialog.Trigger className="px-4 py-2 bg-red-500 text-white rounded-md">
+                حذف مخاطب
+              </Dialog.Trigger>
+              <Dialog.Content>
+                <Dialog.Title>تایید حذف</Dialog.Title>
+                <Dialog.Description>
+                  آیا مطمئن هستید می‌خواهید این مخاطب را حذف کنید؟
+                </Dialog.Description>
+                <Dialog.Actions>
+                  <Dialog.Cancel>انصراف</Dialog.Cancel>
+                  <Dialog.Action
+                    onClick={handleDeleteContact}
+                    variant="destructive"
+                  >
+                    حذف
+                  </Dialog.Action>
+                </Dialog.Actions>
+              </Dialog.Content>
+            </Dialog.Root>
           </Row>
         </div>
       </div>
