@@ -42,7 +42,9 @@ export default function ContactList() {
         <EmptyContent>
           <div className="flex gap-2">
             <Button variant="outline" asChild>
-              <Link href="/new">افزودن مخاطب جدید</Link>
+              <Link href="/new" prefetch>
+                افزودن مخاطب جدید
+              </Link>
             </Button>
           </div>
         </EmptyContent>
