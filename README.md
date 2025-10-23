@@ -63,11 +63,6 @@ contacts/
 │ ├── getColorByChar.ts  
 │ └── utils.ts
 
----
-
-## 📸 Screenshots
-
-Add screenshots in `/public/screenshots`
 
 ---
 
