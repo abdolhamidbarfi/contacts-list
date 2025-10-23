@@ -44,7 +44,12 @@ export default function SingleContact() {
                 className="object-cover w-full h-full"
               />
             ) : (
-              <User className={cn("w-12 h-12 text-muted-foreground", color)} />
+              <User
+                className={cn(
+                  "w-12 h-12 text-muted-foreground text-gray-700",
+                  color
+                )}
+              />
             )}
           </div>
           <h2 className="font-semibold text-2xl pt-4">{contact?.name}</h2>
@@ -63,7 +68,7 @@ export default function SingleContact() {
 
         <div className="fixed bottom-0 left-0 right-0 bg-background border-t border-border">
           <Row>
-            <Button size="lg">
+            <Button size="lg" asChild>
               <Link href={`${contact?.id}/edit`}>ویرایش</Link>
             </Button>
 

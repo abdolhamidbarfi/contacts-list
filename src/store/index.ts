@@ -1,11 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
 import contactsReducer from "@/features/contacts/contactsSlice";
+import { localStorageMiddleware } from "./localStorageMiddleware";
 
 export const makeStore = () => {
   return configureStore({
     reducer: {
       contacts: contactsReducer,
     },
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware().concat(localStorageMiddleware),
   });
 };
 

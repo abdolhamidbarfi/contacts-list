@@ -14,6 +14,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useContacts } from "./useContacts";
 import { getColorByChar } from "@/lib/getColorByChar";
+import { cn } from "@/lib/utils";
 
 interface ContactCardProps {
   id: string;
@@ -39,20 +40,20 @@ export default function ContactCard({
   }
 
   const color = getColorByChar(name[0], "bg");
-
   return (
     <Card
       className="flex items-center justify-between p-4 w-full cursor-pointer"
       onClick={handleClickCard}
       id={id}
     >
-      {/* آواتار و اطلاعات */}
       <div className="flex items-center gap-4">
         <Avatar className="w-12 h-12">
           {avatarUrl ? (
             <AvatarImage src={avatarUrl} alt={name} />
           ) : (
-            <AvatarFallback className={color}>{name[0]}</AvatarFallback>
+            <AvatarFallback className={cn(color, "text-black")}>
+              {name[0]}
+            </AvatarFallback>
           )}
         </Avatar>
 
@@ -62,7 +63,6 @@ export default function ContactCard({
         </div>
       </div>
 
-      {/* دکمه سه نقطه */}
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" size="icon">

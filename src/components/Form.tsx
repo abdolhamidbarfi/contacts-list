@@ -37,7 +37,6 @@ function Form({
     resolver: zodResolver(zodSchema),
   });
 
-  console.log(errors);
   return (
     <FormContext.Provider value={{ handleSubmit, register, errors }}>
       <form
